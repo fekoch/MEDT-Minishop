@@ -1,0 +1,24 @@
+/* die Text-Farbe von roten Buttons anpassen (dadurch das text-color global hell ist, würde sich der button nicht
+ * verfärben)
+ */
+.btn-danger:active {
+    color: black !important;
+}
+
+.btn-warning:active {
+    color: black !important;
+}
+
+/*
+ * .click-rows einen Cursor geben, sodass es so aussieht als ob man sie clicken könnte
+ */
+.click-row {
+    cursor: pointer;
+}
+
+/*
+ * Nav-Links weiß färben
+ */
+.nav a {
+    text-decoration-color: white;
+}
