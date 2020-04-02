@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="56698f31-d4bf-444a-8a9e-35c5bed2d578" name="TGM Server" url="http://projekte.tgm.ac.at/3ahit/fkoch">
+        <fileTransfer host="projekte.tgm.ac.at" port="22" rootFolder="/htdocs/BREC/Minishop" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

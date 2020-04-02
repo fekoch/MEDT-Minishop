@@ -34,7 +34,7 @@ function generateNav($currentSite) {
         'Login' => 'index.php?site=login',
         'Suchen' => 'index.php?site=suchen',
         'Warenkorb' => '#',
-        'Neuer Artikel' => '#'
+        'Neuer Artikel' => 'index.php?site=add'
     ];
 
     foreach ($nav_items as $item => $link) {
@@ -250,6 +250,60 @@ $register = '
     </div>
     </div>';
 
+function genAddArticle($currentUser) {
+    return '<div class="row">
+    <div class="col-lg-9 mr-auto ml-auto">
+        <form method="post" action="addArticle.php">
+            <div class="form-row">
+                <div class="col">
+                    <label for="bezeichnung">Artikelbezeichnung</label>
+                    <input type="text" name="bez"" id="bezeichnung" class="form-control">
+                </div>
+                <div class="col">
+                    <label for="kurztext">Kurzbeschreibung</label>
+                    <input type="text" name="ktxt" id="kurztext" class="form-control">
+                </div>
+            </div>
+            <div class="form-row mt-3">
+                <div class="col">
+                    <label for="langtext">Ausfürliche Beschreibung</label>
+                    <textarea rows="3" name="ltxt" id="langtext" class="form-control">...</textarea>
+                </div>
+                <div class="col-5">
+                    <label for="pic">Artikel-Bild</label>
+                    <input type="file" name="pic" id="pic" class="form-control-file">
+                </div>
+            </div>
+            <div class="form-row mt-3">
+                <div class="col">
+                    <label for="gewicht">Gewicht</label>
+                    <input type="text" id="gewicht" name="gew" class="form-control text-center">
+                </div>
+                <div class="col">
+                    <label for="gelagert">Menge auf Lager</label>
+                    <input type="number" id="gelagert" name="gel" class=" form-control text-center">
+                </div>
+                <div class="col">
+                    <label for="einheit">Einheit</label>
+                    <input type="text" id="einheit" name="ein" class="form-control text-center">
+                </div>
+                <div class="col">
+                    <label for="preis">Preis pro Einheit (€)</label>
+                    <input type="number" id="preis" name="preis" class="form-control text-center">
+                </div>
+            </div>
+            <div class="form-row mt-3">
+                <div class="col-5 mr-auto">
+                    <label for="user">Benutzer</label>
+                    <input type="text" id="user" class="form-control" disabled placeholder="'.$currentUser.'">
+                </div>
+                <button type="submit" class="btn btn-lg btn-success mt-4">Speichern</button>
+            </div>
+        </form>
+    </div>
+</div>
+';
 
+}
 
 ?>

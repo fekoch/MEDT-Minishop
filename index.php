@@ -22,6 +22,9 @@ switch ($site) {
     case 'suchen':
         echo $artikelSuchen;
         break;
+    case 'add':
+        echo genAddArticle($_SESSION['username']);
+        break;
     default:
         throw new RuntimeException();
 }
