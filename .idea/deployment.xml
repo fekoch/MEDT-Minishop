@@ -5,7 +5,7 @@
       <paths name="TGM Server">
         <serverdata>
           <mappings>
-            <mapping deploy="/htdocs/BREC/Minishop" local="$PROJECT_DIR$" web="/BREC/Minishop" />
+            <mapping deploy="/BREC/Minishop" local="$PROJECT_DIR$" web="/BREC/Minishop" />
           </mappings>
         </serverdata>
       </paths>

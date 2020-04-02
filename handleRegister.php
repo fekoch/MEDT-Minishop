@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (! isset($_POST['bname']) or ! isset($_POST['pwort']) or ! isset($_POST['retype_pwort'])) {
+if (""==$_POST['bname'] or ""==$_POST['pwort'] or ""== $_POST['retype_pwort']) {
     header("Location:index.php?site=register&error=true");
     die();
 }
