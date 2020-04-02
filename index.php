@@ -1,3 +1,4 @@
+<!-- Das ist ein Prototyp, um zu testen wie gut das mit dem PHP-Funktionen geht -->
 <?php
  include 'site-parts.php';
 ?>
