@@ -243,7 +243,7 @@ $register = '
             </div>
             <div class="form-group">
                 <label for="retype_pwort">Passwort bestätigen</label>
-                <input type="password" class="form-control" name="pwort" id="pwort" placeholder="Passwort eingeben">
+                <input type="password" class="form-control" name="retype_pwort" id="retype_pwort" placeholder="Passwort eingeben">
             </div>
             <button type="submit" class="btn btn-primary float-right">Registrieren</button>
         </form>

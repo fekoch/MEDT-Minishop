@@ -1,9 +1,20 @@
 <?php
 session_start();
-if (! isset($_POST['bname']) or ! isset($_POST['pwort']) or $_POST['pwort'] == '') {
-    header("Location:index.php?site=login&error=true");
+if (! isset($_POST['bname']) or ! isset($_POST['pwort']) or ! isset($_POST['retype_pwort'])) {
+    header("Location:index.php?site=register&error=true");
     die();
 }
+
+$user = $_POST['bname'];
+$pwort = $_POST['pwort'];
+$pwort2 = $_POST['pwort'];
+
+//pwort must be equal
+if($pwort != $pwort2) {
+    header("Location:index.php?site=login&error=true&reason=pwNotEqual");
+    die();
+}
+
 
 //load users.csv into an array 'username'=>'password'
 $user_file = file('users.csv');
@@ -15,12 +26,18 @@ for($i = 0; $i < count($user_file); $i++) {
     $users[$line[0]] = $line[1];
 }
 
-if($users[$_POST['bname']] == md5($_POST['pwort']) and $users[$_POST['bname']] != '') {
-    $_SESSION['username'] = $_POST['bname'];
-    header("Location:index.php");
+//check if user exists
+if(isset($users[$user])) {
+    header("Location:index.php?site=login&error=true&reason=userExists");
+    die();
 }
-else {
-    unset($_SESSION['username']);
-    header("Location:index.php?site=login&error=true");
-}
+
+//TODO check PW-Strength
+
+//append user
+file_put_contents('users.csv',"\r\n$user;".md5($pwort),FILE_APPEND);
+
+$_SESSION['username'] = $user;
+
+header("Location:index.php");
 die();

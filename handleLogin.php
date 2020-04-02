@@ -2,6 +2,7 @@
 session_start();
 if (! isset($_POST['bname']) or ! isset($_POST['pwort']) or $_POST['pwort'] == '') {
     header("Location:index.php?site=login&error=true");
+    unset($_SESSION['username']);
     die();
 }
 
