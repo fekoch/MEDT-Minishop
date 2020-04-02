@@ -20,7 +20,7 @@ switch ($site) {
         echo $register;
         break;
     case 'suchen':
-        echo $artikelSuchen;
+        echo genSuchen();
         break;
     case 'add':
         echo genAddArticle($_SESSION['username']);

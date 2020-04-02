@@ -73,3 +73,5 @@ fputcsv($articles,$new_article,';');
 fclose($articles);
 
 echo implode(';',$new_article)." abgelget";
+
+header("Location:index.php");

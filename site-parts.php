@@ -130,12 +130,14 @@ $login = '
         </div>
     </div>';
 
-$artikelSuchen = '<div class="row">
+function genSuchen() {
+    //beginn
+    $artikelSuchen = '<div class="row">
         <div class="col-md-3 bg-secondary h-100 pt-2 pb-4 rounded">
-            <form>
+            <form method="get">
                 <div class="form-group">
                     <label for="suche">Suchen</label>
-                    <input class="form-control" type="text" id="suche" placeholder="Suche eingeben">
+                    <input class="form-control" name="suchbegriff" type="text" id="suche" placeholder="Suche eingeben">
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Suchen</button>
             </form>
@@ -151,58 +153,40 @@ $artikelSuchen = '<div class="row">
                     <th scope="col"></th>
                 </tr>
                 </thead>
-                <tbody>
-                <!-- Ein Artikel in der Tabelle -->
-                <tr class="click-row" data-artikel-id="1">
-                    <th scope="row">Artikel1</th>
-                    <td>
-                        <!-- Ich überlege dass noch anzupassen, sodass es auf sm-devices auch noch passt -->
-                        <!--    womöglich ohne eingabe, nur mit dem plus-Button -->
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Menge">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <span class="oi oi-plus" title="Bestellen"></span>
-                                </button>
-                            </div>
-                        </div>
-                    </td>
-                    <td>2.40€ / stk</td>
-                    <td>
-                        <a class="btn btn-sm btn-warning">
-                            <span class="oi oi-pencil" title="Edit" aria-hidden="true"></span>
-                        </a>
-                        <a class="btn btn-sm btn-danger">
-                            <span class="oi oi-delete" title="Delete" aria-hidden="true"></span>
-                        </a>
-                    </td>
-                </tr>
-                <!-- Ein Artikel in der Tabelle -->
-                <tr class="click-row" data-artikel-id="2">
-                    <th scope="row">Artikel2</th>
-                    <td>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Menge">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <span class="oi oi-plus" title="Bestellen"></span>
-                                </button>
-                            </div>
-                        </div>
-                    </td>
-                    <td>2.40€ / stk</td>
-                    <td>
-                        <a class="btn btn-sm btn-warning">
-                            <span class="oi oi-pencil" title="Edit" aria-hidden="true"></span>
-                        </a>
-                        <a class="btn btn-sm btn-danger">
-                            <span class="oi oi-delete" title="Delete" aria-hidden="true"></span>
-                        </a>
-                    </td>
-                </tr>
-                <!-- Ein Artikel in der Tabelle -->
-                <tr class="click-row" data-artikel-id="3">
-                    <th scope="row">Artikel3</th>
+                <tbody>';
+
+    $articleFile = fopen("article.csv",'r');
+
+    $articles = array();
+
+    while (($data = fgetcsv($articleFile,'0',';')) !== FALSE) {
+        $articles [$data[0]] = array(
+            'abez'=> strtolower($data[0]),
+            'ktxt' => $data[1],
+            'ltxt'=> $data[2],
+            'img'=> $data[3],
+            'gewicht'=> $data[4],
+            'gelagert'=> $data[5],
+            'einheit'=> $data[6],
+            'preis'=> $data[7],
+            'user'=>$data[8]
+        );
+    }
+    fclose($articleFile);
+
+    $pattern = "/".$_GET['suchbegriff']."/";
+    $pattern = strtolower($pattern);
+    if($pattern != null) {
+        $ergs = array_filter($articles, function ($a) use($pattern) {return preg_grep($pattern,$a);});
+    }
+    else $ergs = $articles;
+
+    if($ergs != "") {
+    foreach($ergs as $aName => $article) {
+        //ein Artikel
+        $artikelSuchen .='
+                <tr class="click-row" data-artikel-id="'.$aName.'">
+                    <th scope="row">'.$aName.'</th>
                     <td>
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Menge">
@@ -213,7 +197,7 @@ $artikelSuchen = '<div class="row">
                             </div>
                         </div>
                     </td>
-                    <td>2.40€ / stk</td>
+                    <td>'.$article['preis'].'€ / '.$article['einheit'].'</td>
                     <td>
                         <a class="btn btn-sm btn-warning">
                             <span class="oi oi-pencil" title="Edit" aria-hidden="true"></span>
@@ -222,12 +206,19 @@ $artikelSuchen = '<div class="row">
                             <span class="oi oi-delete" title="Delete" aria-hidden="true"></span>
                         </a>
                     </td>
-                </tr>
+                </tr>';
+
+    }}
+
+    //ende
+    $artikelSuchen .='
                 </tbody>
             </table>
             </div>
         </div>
     </div>';
+    return $artikelSuchen;
+}
 
 $register = '
     <div class="row align-items-center">
