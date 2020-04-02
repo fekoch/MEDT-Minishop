@@ -1,21 +1,29 @@
-<!-- Das ist ein Prototyp, um zu testen wie gut das mit dem PHP-Funktionen geht -->
 <?php
- include 'site-parts.php';
- echo genTop('Login');
- ?>
-    <div class="row align-items-center">
-    <div class="col">
-        <form>
-            <div class="form-group">
-                <label for="bname">Benutzername</label>
-                <input type="text" class="form-control" id="bname" placeholder="Benutzername eingeben">
-            </div>
-            <div class="form-group">
-                <label for="pwort">Passwort</label>
-                <input type="password" class="form-control" id="pwort" placeholder="Passwort eingeben">
-            </div>
-            <button type="submit" class="btn btn-primary float-right">Anmelden</button>
-        </form>
-    </div>
-    </div>
-<? echo genBottom();?>
+session_start();
+//redirect to login if not logged in
+$site = $_GET['site'];
+if($site != 'login' and $site != 'register' and ! isset($_SESSION['username'])) {
+    header("Location:index.php?site=login");
+    die();
+}
+include 'site-parts.php';
+
+if($site == '') $site = 'suchen';
+
+echo genTop($site);
+
+switch ($site) {
+    case 'login':
+        echo $login;
+        break;
+    case 'register':
+        echo $register;
+        break;
+    case 'suchen':
+        echo $artikelSuchen;
+        break;
+    default:
+        throw new RuntimeException();
+}
+
+echo genBottom();?>

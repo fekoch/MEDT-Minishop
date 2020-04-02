@@ -31,8 +31,8 @@ function generateNav($currentSite) {
        '            <ul class="nav nav-tabs text-white">';
 
     $nav_items = [
-        'Suchen' => '#',
-        'Login' => '#',
+        'Login' => 'index.php?site=login',
+        'Suchen' => 'index.php?site=suchen',
         'Warenkorb' => '#',
         'Neuer Artikel' => '#'
     ];
@@ -60,11 +60,27 @@ function generateNav($currentSite) {
  * @return string der HTML-Code der Oberseite
  */
 function genTop($currentSite) {
+    $site_titles = array(
+        'login' => "Login",
+        'register' => 'Registrieren',
+        'suchen' => 'Artikel suchen',
+        'korb' => 'Warenkorb',
+        'add' => 'Neuer Artikel'
+    );
+
+    $site_navs = array(
+        'login'=> "Login",
+        'register' => 'Login',
+        'suchen' => 'Suchen',
+        'korb' => 'Warenkorb',
+        'add' => 'Neuer Artikel'
+    );
+
     $top = '   
     <!DOCTYPE html>
     <html lang="de">';
 
-    $top .= genHeader($currentSite);
+    $top .= genHeader($site_titles[$currentSite]);
 
     $top .='
     <body class="bg-dark text-light">
@@ -75,7 +91,7 @@ function genTop($currentSite) {
                 </div>
             </div>';
 
-    $top .= generateNav($currentSite);
+    $top .= generateNav($site_navs[$currentSite]);
 
     return $top;
 }
@@ -91,4 +107,149 @@ function genBottom() {
     ';
     return $bot;
 }
+
+$login = '
+    <div class="row align-items-center">
+    <div class="col">
+        <form method="post" action="handleLogin.php">
+            <div class="form-group">
+                <label for="bname">Benutzername</label>
+                <input type="text" class="form-control" name="bname" id="bname" placeholder="Benutzername eingeben">
+            </div>
+            <div class="form-group">
+                <label for="pwort">Passwort</label>
+                <input type="password" class="form-control" name="pwort" id="pwort" placeholder="Passwort eingeben">
+            </div>
+            <button type="submit" class="btn btn-primary float-right">Anmelden</button>
+        </form>
+    </div>
+    </div>
+    <div class="row align-items-center">
+        <div class="col ">
+            <a href="index.php?site=register">Noch keinen Account? - jetzt registrieren...</a>
+        </div>
+    </div>';
+
+$artikelSuchen = '<div class="row">
+        <div class="col-md-3 bg-secondary h-100 pt-2 pb-4 rounded">
+            <form>
+                <div class="form-group">
+                    <label for="suche">Suchen</label>
+                    <input class="form-control" type="text" id="suche" placeholder="Suche eingeben">
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Suchen</button>
+            </form>
+        </div>
+        <div class="col-md-9">
+            <div class="table-responsive-sm">
+            <table class="table table-hover table-dark table-striped" style="">
+                <thead>
+                <tr>
+                    <th scope="col">Bezeichnung</th>
+                    <th scope="col">Bestellen</th>
+                    <th scope="col">Preis</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Ein Artikel in der Tabelle -->
+                <tr class="click-row" data-artikel-id="1">
+                    <th scope="row">Artikel1</th>
+                    <td>
+                        <!-- Ich überlege dass noch anzupassen, sodass es auf sm-devices auch noch passt -->
+                        <!--    womöglich ohne eingabe, nur mit dem plus-Button -->
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Menge">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <span class="oi oi-plus" title="Bestellen"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                    <td>2.40€ / stk</td>
+                    <td>
+                        <a class="btn btn-sm btn-warning">
+                            <span class="oi oi-pencil" title="Edit" aria-hidden="true"></span>
+                        </a>
+                        <a class="btn btn-sm btn-danger">
+                            <span class="oi oi-delete" title="Delete" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+                <!-- Ein Artikel in der Tabelle -->
+                <tr class="click-row" data-artikel-id="2">
+                    <th scope="row">Artikel2</th>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Menge">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <span class="oi oi-plus" title="Bestellen"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                    <td>2.40€ / stk</td>
+                    <td>
+                        <a class="btn btn-sm btn-warning">
+                            <span class="oi oi-pencil" title="Edit" aria-hidden="true"></span>
+                        </a>
+                        <a class="btn btn-sm btn-danger">
+                            <span class="oi oi-delete" title="Delete" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+                <!-- Ein Artikel in der Tabelle -->
+                <tr class="click-row" data-artikel-id="3">
+                    <th scope="row">Artikel3</th>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Menge">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <span class="oi oi-plus" title="Bestellen"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                    <td>2.40€ / stk</td>
+                    <td>
+                        <a class="btn btn-sm btn-warning">
+                            <span class="oi oi-pencil" title="Edit" aria-hidden="true"></span>
+                        </a>
+                        <a class="btn btn-sm btn-danger">
+                            <span class="oi oi-delete" title="Delete" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>';
+
+$register = '
+    <div class="row align-items-center">
+    <div class="col">
+        <form method="post" action="handleRegister.php">
+            <div class="form-group">
+                <label for="bname">Benutzername</label>
+                <input type="text" class="form-control" name="bname" id="bname" placeholder="Benutzername eingeben">
+            </div>
+            <div class="form-group">
+                <label for="pwort">Passwort</label>
+                <input type="password" class="form-control" name="pwort" id="pwort" placeholder="Passwort eingeben">
+            </div>
+            <div class="form-group">
+                <label for="retype_pwort">Passwort bestätigen</label>
+                <input type="password" class="form-control" name="pwort" id="pwort" placeholder="Passwort eingeben">
+            </div>
+            <button type="submit" class="btn btn-primary float-right">Registrieren</button>
+        </form>
+    </div>
+    </div>';
+
+
+
 ?>
