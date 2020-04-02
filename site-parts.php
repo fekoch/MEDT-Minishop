@@ -57,6 +57,7 @@ function generateNav($currentSite) {
 /**
  * Generiert die Oberseite des Layouts
  * @param $currentSite string die gegenwärtige Seite
+ * @return string der HTML-Code der Oberseite
  */
 function genTop($currentSite) {
     $top = '   
@@ -75,5 +76,19 @@ function genTop($currentSite) {
             </div>';
 
     $top .= generateNav($currentSite);
+
+    return $top;
+}
+
+/**
+ * @return string der HTML-Code des Schlusses
+ */
+function genBottom() {
+    $bot = '
+        </div>
+        </body>
+        </html>
+    ';
+    return $bot;
 }
 ?>
