@@ -130,6 +130,10 @@ $login = '
         </div>
     </div>';
 
+/**
+ * holt sich einen Suchbegriff aus $_GET['suchbegriff']
+ * @return string HTML-Code für die Suchen-Seite
+ */
 function genSuchen() {
     //beginn
     $artikelSuchen = '<div class="row">
@@ -155,24 +159,7 @@ function genSuchen() {
                 </thead>
                 <tbody>';
 
-    $articleFile = fopen("article.csv",'r');
-
-    $articles = array();
-
-    while (($data = fgetcsv($articleFile,'0',';')) !== FALSE) {
-        $articles [$data[0]] = array(
-            'abez'=> strtolower($data[0]),
-            'ktxt' => $data[1],
-            'ltxt'=> $data[2],
-            'img'=> $data[3],
-            'gewicht'=> $data[4],
-            'gelagert'=> $data[5],
-            'einheit'=> $data[6],
-            'preis'=> $data[7],
-            'user'=>$data[8]
-        );
-    }
-    fclose($articleFile);
+    $articles = loadArticles();
 
     $pattern = "/".$_GET['suchbegriff']."/";
     $pattern = strtolower($pattern);
@@ -297,4 +284,114 @@ function genAddArticle($currentUser) {
 
 }
 
+function genArtikelAnsicht() {
+    $abez = $_GET['aid'];
+    $user = $_SESSION['username'];
+    if($abez == "") {
+        header("Location:index.php");
+        die();
+    }
+
+    $articles = loadArticles();
+    $article = $articles[$abez];
+    //wenn abez nicht existiert
+    if($articles == "") {
+        header("Location:index.php");
+        die();
+    }
+
+    $ansicht= '
+<form method="post" action="modifyArticle.php">
+<div class="row">
+    <div class="col-2">
+        <img class="img-fluid" src="https://via.placeholder.com/150">
+    </div>
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <h2>'.$abez.'</h2>
+                <input content="'.$abez.'" name="bez" class="d-none">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="kurztext">Kurzbeschreibung</label>
+                <input ';
+    if($user != $article['user']) $ansicht .= 'disabled';
+    $ansicht.=' type="text" name="ktxt" id="kurztext" class="form-control" value="'.$article['ktxt'].'">
+            </div>
+            <div class="col">
+                <label for="langtext">Ausfürliche Beschreibung</label>
+                <textarea ';
+    if($user != $article['user']) $ansicht .= 'disabled';
+    $ansicht .=' rows="3" name="ltxt" id="langtext" class="form-control">'.$article['ltxt'].'</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="row">
+            <label for="gewicht">Gewicht</label>
+            <input ';
+    if($user != $article['user']) $ansicht .= 'disabled';
+    $ansicht .='type="text" id="gewicht" name="gew" class="form-control text-center" value="'.$article['gewicht'].'">
+        </div>
+        <div class="row">
+            <label for="gelagert">Menge auf Lager</label>
+            <input ';
+    if($user != $article['user']) $ansicht .= 'disabled';
+    $ansicht .='type="number" id="gelagert" name="gel" class=" form-control text-center" value="'.$article['gelagert'].'">
+        </div>
+        <div class="row">
+            <label for="einheit">Einheit</label>
+            <input ';
+    if($user != $article['user']) $ansicht .= 'disabled';
+    $ansicht .='type="text" id="einheit" name="ein" class="form-control text-center" value="'.$article['einheit'].'">
+        </div>
+        <div class="row">
+            <label for="preis">Preis pro Einheit (€)</label>
+            <input ';
+    if($user != $article['user']) $ansicht .= 'disabled';
+    $ansicht .='type="number" id="preis" name="preis" class="form-control text-center" value="'.$article['preis'].'">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-5 mr-auto mb-3">
+        <label for="user">Eigentümer</label>
+        <input type="text" id="user" class="form-control" disabled placeholder="'.$article['user'].'">
+    </div>
+    <button ';
+    if($user != $article['user']) $ansicht .= 'disabled';
+    $ansicht .='type="submit" class="btn btn-lg btn-success mt-auto">Änderungen speichern</button>
+</div>
+</form>
+';
+    return $ansicht;
+}
+
+
+/**
+ * @return array ladedt alle Artikel in ein Array (Key ist Artikelbezeichnung)
+ */
+function loadArticles() {
+    $articleFile = fopen("article.csv",'r');
+
+    $articles = array();
+
+    while (($data = fgetcsv($articleFile,'0',';')) !== FALSE) {
+        $articles [$data[0]] = array(
+            'abez'=> strtolower($data[0]),
+            'ktxt' => $data[1],
+            'ltxt'=> $data[2],
+            'img'=> $data[3],
+            'gewicht'=> $data[4],
+            'gelagert'=> $data[5],
+            'einheit'=> $data[6],
+            'preis'=> $data[7],
+            'user'=>$data[8]
+        );
+    }
+    fclose($articleFile);
+    return $articles;
+}
 ?>

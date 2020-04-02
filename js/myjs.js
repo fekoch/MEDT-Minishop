@@ -13,7 +13,7 @@ $(document).ready(function () {
         //else if it is td or th
         else if ($(sender).is('td') || $(sender).is('th')) {
             var artikelID = $(sender).parent().data('artikel-id');
-            window.location = 'artikel?id='+artikelID;
+            window.location = 'index.php?site=artikel&aid='+artikelID;
         }
         return true;
     });
