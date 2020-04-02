@@ -284,6 +284,10 @@ function genAddArticle($currentUser) {
 
 }
 
+/**
+ * Artikel wird über $_GET['aid'] spezifiziert
+ * @return string HTML-Code für die Artikelansicht
+ */
 function genArtikelAnsicht() {
     $abez = $_GET['aid'];
     $user = $_SESSION['username'];
@@ -317,13 +321,13 @@ function genArtikelAnsicht() {
             <div class="col">
                 <label for="kurztext">Kurzbeschreibung</label>
                 <input ';
-    if($user != $article['user']) $ansicht .= 'disabled';
+    if($user != $article['user']) $ansicht .= 'disabled ';
     $ansicht.=' type="text" name="ktxt" id="kurztext" class="form-control" value="'.$article['ktxt'].'">
             </div>
             <div class="col">
                 <label for="langtext">Ausfürliche Beschreibung</label>
                 <textarea ';
-    if($user != $article['user']) $ansicht .= 'disabled';
+    if($user != $article['user']) $ansicht .= 'disabled ';
     $ansicht .=' rows="3" name="ltxt" id="langtext" class="form-control">'.$article['ltxt'].'</textarea>
             </div>
         </div>
@@ -332,25 +336,25 @@ function genArtikelAnsicht() {
         <div class="row">
             <label for="gewicht">Gewicht</label>
             <input ';
-    if($user != $article['user']) $ansicht .= 'disabled';
+    if($user != $article['user']) $ansicht .= 'disabled ';
     $ansicht .='type="text" id="gewicht" name="gew" class="form-control text-center" value="'.$article['gewicht'].'">
         </div>
         <div class="row">
             <label for="gelagert">Menge auf Lager</label>
             <input ';
-    if($user != $article['user']) $ansicht .= 'disabled';
+    if($user != $article['user']) $ansicht .= 'disabled ';
     $ansicht .='type="number" id="gelagert" name="gel" class=" form-control text-center" value="'.$article['gelagert'].'">
         </div>
         <div class="row">
             <label for="einheit">Einheit</label>
             <input ';
-    if($user != $article['user']) $ansicht .= 'disabled';
+    if($user != $article['user']) $ansicht .= 'disabled ';
     $ansicht .='type="text" id="einheit" name="ein" class="form-control text-center" value="'.$article['einheit'].'">
         </div>
         <div class="row">
             <label for="preis">Preis pro Einheit (€)</label>
             <input ';
-    if($user != $article['user']) $ansicht .= 'disabled';
+    if($user != $article['user']) $ansicht .= 'disabled ';
     $ansicht .='type="number" id="preis" name="preis" class="form-control text-center" value="'.$article['preis'].'">
         </div>
     </div>
@@ -361,11 +365,15 @@ function genArtikelAnsicht() {
         <input type="text" id="user" class="form-control" disabled placeholder="'.$article['user'].'">
     </div>
     <button ';
-    if($user != $article['user']) $ansicht .= 'disabled';
+    if($user != $article['user']) $ansicht .= 'disabled ';
     $ansicht .='type="submit" class="btn btn-lg btn-success mt-auto">Änderungen speichern</button>
 </div>
 </form>
 ';
+    //Debug
+    $ansicht .= '<script>
+console.log("Bild sollte unter: '.$article['img'].' liegen");
+</script>';
     return $ansicht;
 }
 
