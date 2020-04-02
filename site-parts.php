@@ -1,5 +1,5 @@
 <?php
-
+require 'articleTools.php';
 /**
  * Generiert den Header-Block
  * @param $currentSite string der Name der Seite, der Titel setzt sich zusammen aus 'Minishop - '+$currentSite
@@ -375,31 +375,5 @@ function genArtikelAnsicht() {
 console.log("Bild sollte unter: '.$article['img'].' liegen");
 </script>';
     return $ansicht;
-}
-
-
-/**
- * @return array ladedt alle Artikel in ein Array (Key ist Artikelbezeichnung)
- */
-function loadArticles() {
-    $articleFile = fopen("article.csv",'r');
-
-    $articles = array();
-
-    while (($data = fgetcsv($articleFile,'0',';')) !== FALSE) {
-        $articles [$data[0]] = array(
-            'abez'=> strtolower($data[0]),
-            'ktxt' => $data[1],
-            'ltxt'=> $data[2],
-            'img'=> $data[3],
-            'gewicht'=> $data[4],
-            'gelagert'=> $data[5],
-            'einheit'=> $data[6],
-            'preis'=> $data[7],
-            'user'=>$data[8]
-        );
-    }
-    fclose($articleFile);
-    return $articles;
 }
 ?>
