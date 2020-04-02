@@ -53,4 +53,27 @@ function generateNav($currentSite) {
 
     return $nav;
 }
+
+/**
+ * Generiert die Oberseite des Layouts
+ * @param $currentSite string die gegenwärtige Seite
+ */
+function genTop($currentSite) {
+    $top = '   
+    <!DOCTYPE html>
+    <html lang="de">';
+
+    $top .= genHeader($currentSite);
+
+    $top .='
+    <body class="bg-dark text-light">
+        <div class="container vh-100">
+            <div class="row pt-5 pb-5">
+                <div class="col">
+                    <h1 class="display-3 text-center">Minishop</h1>
+                </div>
+            </div>';
+
+    $top .= generateNav($currentSite);
+}
 ?>
