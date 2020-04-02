@@ -1,18 +1,8 @@
 <!-- Das ist ein Prototyp, um zu testen wie gut das mit dem PHP-Funktionen geht -->
 <?php
  include 'site-parts.php';
-?>
-<!DOCTYPE html>
-<html lang="de">
-<?php echo genHeader('Login'); ?>
-<body class="bg-dark text-light">
-<div class="container vh-100">
-    <div class="row pt-5 pb-5">
-        <div class="col">
-            <h1 class="display-3 text-center">Minishop</h1>
-        </div>
-    </div>
-<?php echo generateNav('Login'); ?>
+ echo genTop('Login');
+ ?>
     <div class="row align-items-center">
     <div class="col">
         <form>
@@ -28,6 +18,4 @@
         </form>
     </div>
     </div>
-</div>
-</body>
-</html>
+<? echo genBottom();?>
