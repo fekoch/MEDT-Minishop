@@ -1,11 +1,11 @@
 <?php
-ini_set('upload_max_filesize', '100M');
-ini_set('post_max_size','100M');
+require 'articleTools.php';
 session_start();
 $user = $_SESSION['username'];
+
 //nicht angemeldete User haben keine Berechtigung
 if($user == null) {
-    header("Location:index.php?error=true");
+    header("Location:index.php?error=true&msg=user not logged in");
     die();
 }
 
@@ -21,13 +21,6 @@ $new_article = array(
 'user' => $user
 );
 
-//falls ein Wert fehlt => abbruch
-foreach ($new_article as $item) {
-    if($item == null) {
-        header("Location:index.php?site=add&error=true");
-        die();
-    }
-}
 
 //secure file upload
 ini_set('upload_max_filesize', '100M');
@@ -72,12 +65,8 @@ move_uploaded_file($_FILES['pic']['tmp_name'],$new_path);
 $new_article['pic'] = $new_path;
 
 
-//Article abspeichern
-$articles = fopen('article.csv','a');
-fputcsv($articles,$new_article,';');
-fclose($articles);
+addArticle($new_article);
 
 echo implode(';',$new_article)." abgelget";
-phpinfo();
 
 header("Location:index.php");

@@ -54,18 +54,19 @@ function deleteArticle($abez) {
 
 /**
  * fügt einen neuen Artikel hinzu
- * @param $article array Ein Artikel-Array
+ * @param $new_article array Ein Artikel-Array
  */
-function addArticle($article) {
-    $_POST['bez']=$article['bez'];
-    $_POST['ktxt']=$article['ktxt'];
-    $_POST['ltxt']=$article['ltxt'];
-    $_POST['pic']=$article['pic'];
-    $_POST['gew']=$article['gewicht'];
-    $_POST['gel']=$article['gelagert'];
-    $_POST['ein']=$article['einheit'];
-    $_POST['preis']=$article['preis'];
-    header("Location:addArticle.php");
+function addArticle($new_article) {
+//falls ein Wert fehlt => abbruch
+    if (!empty($new_article) and sizeof($new_article)==9) {
+//Article abspeichern
+        $articles = fopen('article.csv','a');
+        fputcsv($articles,$new_article,';');
+        fclose($articles);
+    }
+    else{
+        header("Location:index.php?site=suchen?error=true?msg=wrong article array");
+    }
 }
 
 

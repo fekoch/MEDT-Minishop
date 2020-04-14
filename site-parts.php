@@ -186,7 +186,7 @@ function genSuchen() {
                             </div>
                         </div>
                     </td>
-                    <td>'.$article['preis'].'€ / '.$article['einheit'].'</td>
+                    <td>'.$article['preis'].'€ / '.$article['gewicht'].''.$article['einheit'].'</td>
                     <td>
                         <a class="btn btn-sm btn-warning">
                             <span class="oi oi-pencil" title="Edit" aria-hidden="true"></span>
@@ -307,7 +307,7 @@ function genArtikelAnsicht() {
     }
 
     $ansicht= '
-<form method="post" action="modifyArticle.php" enctype="multipart/form-data">
+<form method="post" action="modifyArticle.php">
 <div class="row">
     <div class="col-2">
         <img class="img-fluid" src="https://via.placeholder.com/150">
@@ -316,7 +316,7 @@ function genArtikelAnsicht() {
         <div class="row">
             <div class="col">
                 <h2>'.$abez.'</h2>
-                <input content="'.$abez.'" name="bez" class="d-none">
+                <input value="'.$abez.'" name="bez" type="hidden">
             </div>
         </div>
         <div class="row">
@@ -364,7 +364,7 @@ function genArtikelAnsicht() {
 <div class="row">
     <div class="col-5 mr-auto mb-3">
         <label for="user">Eigentümer</label>
-        <input type="text" id="user" class="form-control" disabled placeholder="'.$article['user'].'">
+        <input type="text" id="user" name="user" class="form-control" disabled value="'.$article['user'].'">
     </div>
     <button ';
     if($user != $article['user']) $ansicht .= 'disabled ';

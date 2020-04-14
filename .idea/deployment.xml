@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="TGM Server" compareModeInSync="SIZE">
+  <component name="PublishConfigData" autoUpload="Always" serverName="TGM Minishop" compareModeInSync="SIZE">
     <serverData>
-      <paths name="TGM Server">
+      <paths name="TGM Minishop">
         <serverdata>
           <mappings>
-            <mapping deploy="/BREC/Minishop" local="$PROJECT_DIR$" web="/BREC/Minishop" />
+            <mapping deploy="/BREC/Minishop" local="$PROJECT_DIR$" web="/3ahit/fkoch/BREC/Minishop" />
           </mappings>
         </serverdata>
       </paths>
     </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>
