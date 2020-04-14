@@ -12,7 +12,7 @@ echo '
         <div class="row">
             <div class="col">
                 <h2>'.$abez.'</h2>
-                <input content="'.$abez'." name="bez" class="d-none">
+                <input content="'.$abez'." name="abez" class="d-none">
             </div>
         </div>
         <div class="row">

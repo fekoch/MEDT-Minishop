@@ -10,4 +10,7 @@ if($user == null) {
 
 //TODO all
 //delete old one
+$oldArticle = deleteArticle($_POST['abez']);
+
+if($oldArticle)
 //add modified one

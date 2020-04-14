@@ -1,4 +1,6 @@
 <?php
+ini_set('upload_max_filesize', '100M');
+ini_set('post_max_size','100M');
 session_start();
 $user = $_SESSION['username'];
 //nicht angemeldete User haben keine Berechtigung
@@ -28,7 +30,10 @@ foreach ($new_article as $item) {
 }
 
 //secure file upload
+ini_set('upload_max_filesize', '100M');
+ini_set('post_max_size','100M');
 $upload_folder = 'artikelbilder/';
+
 $filename = pathinfo($_FILES["pic"]['name'], PATHINFO_FILENAME);
 $extension = strtolower(pathinfo($_FILES['pic']['name'], PATHINFO_EXTENSION));
 
@@ -73,5 +78,6 @@ fputcsv($articles,$new_article,';');
 fclose($articles);
 
 echo implode(';',$new_article)." abgelget";
+phpinfo();
 
 header("Location:index.php");

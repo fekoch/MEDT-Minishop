@@ -1,4 +1,6 @@
 <?php
+ini_set('upload_max_filesize', '100M');
+ini_set('post_max_size','100M');
 require 'articleTools.php';
 /**
  * Generiert den Header-Block
@@ -305,7 +307,7 @@ function genArtikelAnsicht() {
     }
 
     $ansicht= '
-<form method="post" action="modifyArticle.php">
+<form method="post" action="modifyArticle.php" enctype="multipart/form-data">
 <div class="row">
     <div class="col-2">
         <img class="img-fluid" src="https://via.placeholder.com/150">
