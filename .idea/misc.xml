@@ -3,4 +3,15 @@
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES6" />
   </component>
+  <component name="PhpEntryPointsManager">
+    <entry_point>
+      <entry_point TYPE="phpMethod" FQNAME="\Warenkorb __construct" />
+      <entry_point TYPE="phpMethod" FQNAME="\Warenkorb remove" />
+      <entry_point TYPE="phpClass" FQNAME="\Warenkorb" />
+      <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/Warenkorb.class.php" />
+    </entry_point>
+    <pattern value="\Warenkorb" member="__construct" />
+    <pattern value="\Warenkorb" member="remove" />
+    <pattern value="\Warenkorb" />
+  </component>
 </project>
