@@ -105,12 +105,11 @@ function genTop($currentSite) {
  * @return string der HTML-Code des Schlusses
  */
 function genBottom() {
-    $bot = '
+    return '
         </div>
         </body>
         </html>
     ';
-    return $bot;
 }
 
 $login = '
@@ -158,7 +157,13 @@ function genSuchen() {
             <form method="get">
                 <div class="form-group">
                     <label for="suche">Suchen</label>
-                    <input class="form-control" name="suchbegriff" type="text" id="suche" placeholder="Suche eingeben">
+                    <input class="form-control" name="suchbegriff" type="text" id="suche" placeholder="';
+    if($_GET['suchbegriff'] != null) $artikelSuchen .= $_GET['suchbegriff'];
+    else {
+        $artikelSuchen .= 'Suche eingeben';
+        unset($_GET['suchbegriff']);
+    }
+    $artikelSuchen .= '">
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Suchen</button>
             </form>
@@ -178,9 +183,9 @@ function genSuchen() {
 
     $articles = loadArticles();
 
-    $pattern = "/".$_GET['suchbegriff']."/";
-    $pattern = strtolower($pattern);
-    if($pattern != null) {
+    if($_GET['suchbegriff'] != null) {
+        //sucht nach dem als regex (i => case insensitive)
+        $pattern = "/".$_GET['suchbegriff']."/i";
         $ergs = array_filter($articles, function ($a) use($pattern) {return preg_grep($pattern,$a);});
     }
     else $ergs = $articles;
@@ -206,7 +211,7 @@ function genSuchen() {
                         <a class="btn btn-sm btn-warning">
                             <span class="oi oi-pencil" title="Edit" aria-hidden="true"></span>
                         </a>
-                        <a class="btn btn-sm btn-danger">
+                        <a class="btn btn-sm btn-danger delete-article">
                             <span class="oi oi-delete" title="Delete" aria-hidden="true"></span>
                         </a>
                     </td>
