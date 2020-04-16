@@ -8,6 +8,6 @@ if($user == null) {
     header("Location:index.php?error=true?msg=nuser not authorized");
     die();
 }
-
+//TODO fix
 $wk = new Warenkorb();
 $wk->remove($_POST['id']);
