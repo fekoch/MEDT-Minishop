@@ -10,7 +10,7 @@ function loadArticles() {
 
     while (($data = fgetcsv($articleFile,'0',';')) !== FALSE) {
         $articles [$data[0]] = array(
-            'abez'=> strtolower($data[0]),
+            'abez'=> $data[0],
             'ktxt' => $data[1],
             'ltxt'=> $data[2],
             'img'=> $data[3],
@@ -45,7 +45,7 @@ function deleteArticle($abez) {
     $file = fopen('article.csv','w');
     foreach ($articles as $article){
         if ($article['abez'] != $abez) {
-            fputcsv($file,article,';');
+            fputcsv($file,$article,';');
         }
     }
     fclose($file);
