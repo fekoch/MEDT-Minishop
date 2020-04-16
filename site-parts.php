@@ -407,4 +407,63 @@ console.log("Bild sollte unter: '.$article['img'].' liegen");
     return $ansicht;
 }
 
+/**
+ * @return string die Kauf-Seite
+ */
+function genBuy() {
+    $wk = new Warenkorb();
+    $site = '
+<div class="row">
+<div class="card text-dark m-auto">
+    <div class="card-header text-center pl-5 pr-5 pt-4 pb-1">
+        <h3 class="card-title">Rechnung</h3>
+    </div>
+    <div class="card-body text-right pt-1 pb-1">
+        <ul class="list-group list-group-flush">
+        ';
+    $articles = loadArticles();
+    $wk = new Warenkorb();
+    foreach ($wk->getArray() as $id => $menge) {
+        $site .= '<li class="list-group-item">';
+        $site .= "$menge x<b> $id </b> -  ".$articles[$id]['preis']*$menge." €";
+        $site .= '</li>';
+    }
+    $site .=
+       '</ul>
+    </div>
+    <div class="card-footer text-center">
+        <p>Gesamtkosten: <b>'.$wk->getTotalCost().'</b></p>
+    </div>
+</div>   
+</div>
+<script>
+//Enable tooltips
+$(function () {
+  $(\'[data-toggle="tooltip"]\').tooltip()
+})
+</script>
+<div class="row">
+<div class="col mt-3 text-center" title="Die Zahlungsoption hat keine Funktion" data-toggle="tooltip">
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="z_opt_1" id="z_opt_1" value="1" checked>
+      <label class="form-check-label" for="z_opt_1">
+        Zahlungsoption 1
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="z_opt_1" id="z_opt_1" value="1" checked>
+      <label class="form-check-label" for="z_opt_1">
+        Zahlungsoption 2
+      </label>
+    </div>
+</div>
+</div>
+<div class="row text-center pt-4">
+<div class="col">
+<a href="buy.php" class="btn btn-success btn-lg">Kauf bestätigen</a>
+</div>
+</div>
+    ';
+    return $site;
+}
 ?>

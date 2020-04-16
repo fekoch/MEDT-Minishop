@@ -45,7 +45,6 @@ class Warenkorb {
         $articles = loadArticles();
         $gesamtpreis = 0;
         $html = '
-<form>
 <div class="row">
     <div class="col-md-9">
         <div class="table-responsive-sm">
@@ -93,15 +92,13 @@ class Warenkorb {
             <label for="gesamtpreis">Gesamtpreis</label>
             <input class="form-control text-center" type="text" id="Gesamtpreis" contenteditable="false" disabled value="'.$gesamtpreis.' €">
         </div>
-        <button type="submit" class="btn btn-primary w-100">Kaufen</button>
+        <a href="index.php?site=buy" class="btn btn-primary w-100">Kaufen</a>
     </div>
 </div>
-</form>
     ';
         return $html;
     }
-
-    /**
+/**
      * @return int die Menge der Artikel
      */
     public function getTotalArticles() {
@@ -111,10 +108,27 @@ class Warenkorb {
     }
 
     /**
+     * @return float|int gesamtkosten des Warenkorbs
+     */
+    public function getTotalCost() {
+        $total = 0;
+        $articles = loadArticles();
+        foreach ($this->wk as $id=>$menge) $total += $articles[$id]['preis']*$menge;
+        return $total;
+    }
+
+    /**
      * speichert die Änderungen vom Warenkorb in der Session
      */
     public function __destruct()
     {
         $_SESSION['warenkorb'] = serialize($this->wk);
+    }
+
+    /**
+     * @return array das array ArtikelID => Menge
+     */
+    public function getArray() {
+        return $this->wk;
     }
 }

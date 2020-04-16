@@ -36,6 +36,9 @@ switch ($site) {
         $wk = new Warenkorb();
         echo $wk->genHTML();
         break;
+    case 'buy':
+        echo genBuy();
+        break;
     default:
         throw new RuntimeException();
 }
