@@ -6,13 +6,17 @@ if($site != 'login' and $site != 'register' and ! isset($_SESSION['username'])) 
     header("Location:index.php?site=login");
     die();
 }
-include 'site-parts.php';
+require_once 'site-parts.php';
 
 if($site == '') $site = 'suchen';
+if($site == 'login' and isset($_SESSION['username'])) $site = 'logout';
 
 echo genTop($site);
 
 switch ($site) {
+    case 'logout':
+        echo $logout;
+        break;
     case 'login':
         echo $login;
         break;

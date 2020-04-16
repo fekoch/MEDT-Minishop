@@ -16,21 +16,24 @@ if($pwort != $pwort2) {
 }
 
 
+if(file_exists('user.csv')) {
 //load users.csv into an array 'username'=>'password'
-$user_file = file('users.csv');
-$users = array();
-for($i = 0; $i < count($user_file); $i++) {
-    $line = explode(';',$user_file[$i]);
-    $line[1] = str_replace("\r",'',$line[1]);
-    $line[1] = str_replace("\n",'',$line[1]);
-    $users[$line[0]] = $line[1];
-}
+    $user_file = @file('users.csv');
+    $users = array();
+    for($i = 0; $i < count($user_file); $i++) {
+        $line = explode(';',$user_file[$i]);
+        $line[1] = str_replace("\r",'',$line[1]);
+        $line[1] = str_replace("\n",'',$line[1]);
+        $users[$line[0]] = $line[1];
+    }
 
 //check if user exists
-if(isset($users[$user])) {
-    header("Location:index.php?site=login&error=true&reason=userExists");
-    die();
+    if(isset($users[$user])) {
+        header("Location:index.php?site=login&error=true&reason=userExists");
+        die();
+    }
 }
+
 
 //TODO check PW-Strength
 

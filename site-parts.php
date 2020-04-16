@@ -33,7 +33,7 @@ function generateNav($currentSite) {
        '            <ul class="nav nav-tabs text-white">';
 
     $nav_items = [
-        'Login' => 'index.php?site=login',
+        'Benutzer' => 'index.php?site=login',
         'Suchen' => 'index.php?site=suchen',
         'Warenkorb' => '#',
         'Neuer Artikel' => 'index.php?site=add'
@@ -67,15 +67,17 @@ function genTop($currentSite) {
         'register' => 'Registrieren',
         'suchen' => 'Artikel suchen',
         'korb' => 'Warenkorb',
-        'add' => 'Neuer Artikel'
+        'add' => 'Neuer Artikel',
+        'logout' => 'Logout'
     );
 
     $site_navs = array(
-        'login'=> "Login",
+        'login'=> "Benutzer",
         'register' => 'Login',
         'suchen' => 'Suchen',
         'korb' => 'Warenkorb',
-        'add' => 'Neuer Artikel'
+        'add' => 'Neuer Artikel',
+        'logout' => 'Benutzer'
     );
 
     $top = '   
@@ -130,6 +132,18 @@ $login = '
         <div class="col ">
             <a href="index.php?site=register">Noch keinen Account? - jetzt registrieren...</a>
         </div>
+    </div>';
+
+$logout = '
+    <div class="row align-items-center">
+    <div class="col pt-3 text-center">
+        <p>Angemeldet als <b>'.$_SESSION['username'].'</b></p>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col text-center pt-3">
+        <a href="logout.php" class="btn btn-danger">Abmelden</a>
+    </div>
     </div>';
 
 /**
