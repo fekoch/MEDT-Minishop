@@ -67,6 +67,4 @@ $new_article['pic'] = $new_path;
 
 addArticle($new_article);
 
-echo implode(';',$new_article)." abgelget";
-
 header("Location:index.php");

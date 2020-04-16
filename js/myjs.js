@@ -24,4 +24,19 @@ $(document).ready(function () {
         let artikelID = $(sender).parents('.click-row').data('artikel-id');
         $.post("removeArticle.php",{id: artikelID});
     });
+
+    /*TODO Edit Button*/
+
+    /*Order Article*/
+    $('.order-article').click(function (e) {
+        let sender = e.target;  //the element which sent the event
+        let artikelID = $(sender).parents('.click-row').data('artikel-id');
+        let parent = $(sender).parents('.click-row');
+        let find = parent.find('input');
+        let menge = $(sender).parents('.click-row').find('input').val();
+        $.post("orderArticle.php",{id: artikelID, anz: menge},function () {
+            window.location = "index.php?site=suchen";
+        });
+
+    });
 });

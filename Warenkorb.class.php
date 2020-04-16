@@ -58,17 +58,18 @@ class Warenkorb {
                 <tbody>
                 ';
         foreach ($this->wk as $id => $menge) {
+            if(! isset($articles[$id])) continue;
             $preis = $articles[$id]['preis'] * $menge;
             $html .= '
-                <tr class="click-row" data-artikel-id="1">
+                <tr class="click-row" data-artikel-id="'.$id.'">
                     <th scope="row">
                         '.$id.'
                     </th>
                     <td>
-                        '.$menge.'
+                        '.$menge.' x '.$articles[$id]['gewicht'].' '.$articles[$id]['einheit'].'
                     </td>
                     <td>
-                        '.$preis.' €
+                        '.$menge.' x '.$articles[$id]['preis'].'€  = '.$preis.' €
                     </td>
                     <td>
                         <a class="btn btn-sm btn-danger">
@@ -95,6 +96,15 @@ class Warenkorb {
 </form>
     ';
         return $html;
+    }
+
+    /**
+     * @return int die Menge der Artikel
+     */
+    public function getTotalArticles() {
+        $total = 0;
+        foreach ($this->wk as $value) $total += $value;
+        return $total;
     }
 
     /**

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="TGM Minishop" compareModeInSync="SIZE" showExcludedInSync="true">
+  <component name="PublishConfigData" autoUpload="Always" serverName="TGM Minishop" compareModeInSync="SIZE" showNewOnSourceInSync="false" showNewOnTargetInSync="false" showExcludedInSync="true">
     <serverData>
       <paths name="TGM Minishop">
         <serverdata>
@@ -9,6 +9,7 @@
           </mappings>
           <excludedPaths>
             <excludedPath path="/BREC/Minishop/open-iconic" />
+            <excludedPath local="true" path="$PROJECT_DIR$/.idea" />
           </excludedPaths>
         </serverdata>
       </paths>

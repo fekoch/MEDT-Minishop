@@ -43,9 +43,17 @@ function generateNav($currentSite) {
     foreach ($nav_items as $item => $link) {
         if($item == $currentSite) $active = 'active';
         else $active = '';
+        if($item == 'Warenkorb') {
+            $wk = new Warenkorb();
+            $total = $wk->getTotalArticles();
+            if($total >0) {
+                $badge = '&nbsp;&nbsp;<span class="badge badge-info badge-pill">'.$total.'</span>';
+            }
+        }
+        else $badge ='';
         $nav .=
             '<li class="nav-item">'.
-            '   <a class="nav-link '.$active.'" href="'.$link.'">'.$item.'</a>'.
+            '   <a class="nav-link '.$active.'" href="'.$link.'">'.$item.$badge.'</a>'.
             '</li>';
     }
 
@@ -200,7 +208,7 @@ function genSuchen() {
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Menge">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <button class="btn btn-primary order-article" type="button">
                                     <span class="oi oi-plus" title="Bestellen"></span>
                                 </button>
                             </div>
@@ -208,7 +216,7 @@ function genSuchen() {
                     </td>
                     <td>'.$article['preis'].'€ / '.$article['gewicht'].''.$article['einheit'].'</td>
                     <td>
-                        <a class="btn btn-sm btn-warning">
+                        <a class="btn btn-sm btn-warning edit-article">
                             <span class="oi oi-pencil" title="Edit" aria-hidden="true"></span>
                         </a>
                         <a class="btn btn-sm btn-danger delete-article">
