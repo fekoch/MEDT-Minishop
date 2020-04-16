@@ -22,7 +22,9 @@ $(document).ready(function () {
     $('.delete-article').click(function (e) {
         let sender = e.target;  //the element which sent the event
         let artikelID = $(sender).parents('.click-row').data('artikel-id');
-        $.post("removeArticle.php",{id: artikelID});
+        $.post("removeArticle.php",{id: artikelID},function () {
+            window.location = "index.php?site=suchen";//refresh the page
+        });
     });
 
     /*TODO Edit Button*/
@@ -31,12 +33,18 @@ $(document).ready(function () {
     $('.order-article').click(function (e) {
         let sender = e.target;  //the element which sent the event
         let artikelID = $(sender).parents('.click-row').data('artikel-id');
-        let parent = $(sender).parents('.click-row');
-        let find = parent.find('input');
         let menge = $(sender).parents('.click-row').find('input').val();
         $.post("orderArticle.php",{id: artikelID, anz: menge},function () {
             window.location = "index.php?site=suchen";
         });
+    });
 
+    /* Un-Order Button */
+    $('.un-order-article').click(function (e) {
+        let sender = e.target;  //the element which sent the event
+        let artikelID = $(sender).parents('.click-row').data('artikel-id');
+        $.post("unOrderArticle.php",{id: artikelID},function () {
+            window.location = "index.php?site=suchen";
+        });
     });
 });

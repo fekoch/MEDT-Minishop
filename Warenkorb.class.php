@@ -72,7 +72,7 @@ class Warenkorb {
                         '.$menge.' x '.$articles[$id]['preis'].'€  = '.$preis.' €
                     </td>
                     <td>
-                        <a class="btn btn-sm btn-danger">
+                        <a class="btn btn-sm btn-danger un-order-article">
                             <span class="oi oi-minus" title="Delete" aria-hidden="true"></span>
                         </a>
                     </td>
