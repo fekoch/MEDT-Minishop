@@ -27,6 +27,9 @@ class Warenkorb {
      * @param $menge integer die Menge
      */
     function add($article,$menge) {
+        if($menge <= 0) return;
+        $articles=loadArticles();
+        if(! isset($articles[$article])) return;
         $this->wk[$article] += $menge;
     }
 

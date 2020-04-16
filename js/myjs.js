@@ -1,4 +1,14 @@
-
+order = function (e) {
+    if(e.type == 'keypress') {
+        if (e.which != '13') return;
+    }
+    let sender = e.target;  //the element which sent the event
+    let artikelID = $(sender).parents('.click-row').data('artikel-id');
+    let menge = $(sender).parents('.click-row').find('input').val();
+    $.post("orderArticle.php",{id: artikelID, anz: menge},function () {
+        window.location = "index.php?site=suchen";
+    });
+}
 $(document).ready(function () {
     /* Clickable Row */
     $(".click-row").click(function (e) {
@@ -23,28 +33,23 @@ $(document).ready(function () {
         let sender = e.target;  //the element which sent the event
         let artikelID = $(sender).parents('.click-row').data('artikel-id');
         $.post("removeArticle.php",{id: artikelID},function () {
-            window.location = "index.php?site=suchen";//refresh the page
+            window.location = "index.php?site=korb";//refresh the page
         });
     });
 
     /*TODO Edit Button*/
 
     /*Order Article*/
-    $('.order-article').click(function (e) {
-        let sender = e.target;  //the element which sent the event
-        let artikelID = $(sender).parents('.click-row').data('artikel-id');
-        let menge = $(sender).parents('.click-row').find('input').val();
-        $.post("orderArticle.php",{id: artikelID, anz: menge},function () {
-            window.location = "index.php?site=suchen";
-        });
-    });
+    $('.order-article').click(order);
+    $('.click-row input').keypress(order);
 
     /* Un-Order Button */
     $('.un-order-article').click(function (e) {
         let sender = e.target;  //the element which sent the event
         let artikelID = $(sender).parents('.click-row').data('artikel-id');
         $.post("unOrderArticle.php",{id: artikelID},function () {
-            window.location = "index.php?site=suchen";
+            window.location = "index.php?site=korb";
         });
+
     });
 });
