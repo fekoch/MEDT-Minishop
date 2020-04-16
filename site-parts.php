@@ -1,7 +1,8 @@
 <?php
 ini_set('upload_max_filesize', '100M');
 ini_set('post_max_size','100M');
-require 'articleTools.php';
+require_once 'articleTools.php';
+require_once 'Warenkorb.class.php';
 /**
  * Generiert den Header-Block
  * @param $currentSite string der Name der Seite, der Titel setzt sich zusammen aus 'Minishop - '+$currentSite
@@ -35,7 +36,7 @@ function generateNav($currentSite) {
     $nav_items = [
         'Benutzer' => 'index.php?site=login',
         'Suchen' => 'index.php?site=suchen',
-        'Warenkorb' => '#',
+        'Warenkorb' => 'index.php?site=korb',
         'Neuer Artikel' => 'index.php?site=add'
     ];
 
@@ -392,4 +393,5 @@ console.log("Bild sollte unter: '.$article['img'].' liegen");
 </script>';
     return $ansicht;
 }
+
 ?>

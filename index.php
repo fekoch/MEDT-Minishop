@@ -32,6 +32,10 @@ switch ($site) {
     case 'artikel':
         echo genArtikelAnsicht();
         break;
+    case 'korb':
+        $wk = new Warenkorb();
+        echo $wk->genHTML();
+        break;
     default:
         throw new RuntimeException();
 }
