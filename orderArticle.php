@@ -8,7 +8,22 @@ if($user == null) {
     header("Location:index.php?error=true?msg=nuser not authorized");
     die();
 }
-
+$id = $_POST['id'];
+$menge = $_POST['anz'];
 $wk = new Warenkorb();
-$wk->add($_POST['id'],$_POST['anz']);
+$lager = loadArticles();
+
+if($lager[$id]['gelagert'] < $menge) {
+    $response = array(
+        'error' => true,
+        'msg' => 'Es sind nur '.$lager[$id]['gelagert'].' Artikel dieser Art verfügbar'
+    );
+}
+else{
+    $wk->add($id,$menge);
+    $response = array(['err' => false]);
+}
+header('Content-type: application/json');
+echo json_encode($response);
+
 

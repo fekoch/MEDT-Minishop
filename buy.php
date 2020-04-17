@@ -10,7 +10,7 @@ foreach ($wk->getArray() as $id => $menge) {
     $ml = $lager[$id]['gelagert'];
     $ml -= $menge;
     $old =$lager[$id];
-    deleteArticle($id);
+    deleteArticleAlways($id);
     $wk->remove($id);
     if ($ml != 0) {
         $old['gelagert'] = $ml;

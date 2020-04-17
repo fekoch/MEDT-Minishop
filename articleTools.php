@@ -26,19 +26,14 @@ function loadArticles() {
 }
 
 /**
- * läscht einen Article
+ * läscht einen Article, selbst wenn der Benutzer ihn nicht besitzt
  * @param $abez string die Bezeichnung des Articles
  * @return bool|mixed der geläschte Artikel oder false
  */
-function deleteArticle($abez) {
+function deleteArticleAlways($abez) {
     $articles = loadArticles();
     if($articles[$abez] == null) {
         //article nicht vorhanden
-        return false;
-    }
-
-    //nur eigentümer darf löschen
-    if($_SESSION['username']!= $articles[$abez]['user']) {
         return false;
     }
 
@@ -53,8 +48,23 @@ function deleteArticle($abez) {
 }
 
 /**
+ * läscht einen Article
+ * @param $abez string die Bezeichnung des Articles
+ * @return bool|mixed der geläschte Artikel oder false
+ */
+function deleteArticle($abez) {
+    $articles = loadArticles();
+    //nur eigentümer darf löschen
+    if($_SESSION['username']!= $articles[$abez]['user']) {
+        return false;
+    }
+    return deleteArticleAlways($abez);
+}
+
+/**
  * fügt einen neuen Artikel hinzu
  * @param $new_article array Ein Artikel-Array
+ * @return bool false, if the article-array was not correcty formatted
  */
 function addArticle($new_article) {
 //falls ein Wert fehlt => abbruch
@@ -63,9 +73,10 @@ function addArticle($new_article) {
         $articles = fopen('article.csv','a');
         fputcsv($articles,$new_article,';');
         fclose($articles);
+        return true;
     }
     else{
-        header("Location:index.php?site=suchen?error=true?msg=wrong article array");
+        return false;
     }
 }
 

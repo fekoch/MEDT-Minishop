@@ -5,8 +5,24 @@ order = function (e) {
     let sender = e.target;  //the element which sent the event
     let artikelID = $(sender).parents('.click-row').data('artikel-id');
     let menge = $(sender).parents('.click-row').find('input').val();
-    $.post("orderArticle.php",{id: artikelID, anz: menge},function () {
-        window.location = "index.php?site=suchen";
+    /*$.post("orderArticle.php",{id: artikelID, anz: menge},function (response) {
+        let link =  "index.php?site=suchen";
+        if(response.err == true) link += '&msg=' + response.msg;
+        window.location = link;
+    });*/
+    $.ajax({
+        url: 'orderArticle.php',
+        type: "POST",
+        data: {id:artikelID, anz: menge},
+        success: function (data) {
+            let link =  "index.php?site=suchen";
+            if(data.error === true) {
+                alert(data.msg);
+            }
+            else {
+                window.location = link;
+            }
+        }
     });
 }
 
