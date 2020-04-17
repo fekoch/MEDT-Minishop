@@ -131,4 +131,12 @@ class Warenkorb {
     public function getArray() {
         return $this->wk;
     }
+
+    /**
+     * @param $id die id des Artikel
+     * @return mixed Die Menge des Artikel im Warenkorb
+     */
+    public function getNumbersArticle($id){
+        return $this->wk[$id];
+    }
 }
