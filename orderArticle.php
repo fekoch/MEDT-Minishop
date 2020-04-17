@@ -13,10 +13,10 @@ $menge = $_POST['anz'];
 $wk = new Warenkorb();
 $lager = loadArticles();
 
-if($lager[$id]['gelagert'] < $menge) {
+if($lager[$id]['gelagert'] - $wk->getNumbersArticle($id)< $menge) {
     $response = array(
         'error' => true,
-        'msg' => 'Es sind nur '.$lager[$id]['gelagert'].' Artikel dieser Art verfügbar'
+        'msg' => 'Es sind nur noch '.$lager[$id]['gelagert']- $wk->getNumbersArticle($id).' Artikel dieser Art verfügbar'
     );
 }
 else{
