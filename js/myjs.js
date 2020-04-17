@@ -50,7 +50,7 @@ $(document).ready(function () {
         let sender = e.target;  //the element which sent the event
         let artikelID = $(sender).parents('.click-row').data('artikel-id');
         $.post("removeArticle.php",{id: artikelID},function () {
-            window.location = "index.php?site=korb";//refresh the page
+            window.location = "index.php?site=suchen";//refresh the page
         });
     });
 
