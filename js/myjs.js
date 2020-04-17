@@ -9,6 +9,18 @@ order = function (e) {
         window.location = "index.php?site=suchen";
     });
 }
+
+//go back button (but ignore the edit site)
+function goBack() {
+    let prev = document.referrer;
+    if (prev.match(/edit=true$/) != null) {
+// davor war edit
+        window.history.go(-2);
+    }
+    else window.history.back();
+}
+
+//loaded with the site
 $(document).ready(function () {
     /* Clickable Row */
     $(".click-row").click(function (e) {
@@ -27,6 +39,11 @@ $(document).ready(function () {
             window.location = 'index.php?site=artikel&aid='+artikelID;
         }
         return true;
+    });
+    $('.edit-article').click(function (e) {
+        let sender = e.target;  //the element which sent the event
+        let artikelID = $(sender).parents('.click-row').data('artikel-id');
+        window.location = "index.php?site=artikel&aid="+artikelID+"&edit=true";
     });
     /*delete button*/
     $('.delete-article').click(function (e) {

@@ -316,6 +316,7 @@ function genAddArticle($currentUser) {
 
 /**
  * Artikel wird über $_GET['aid'] spezifiziert
+ * Edit wird über $_GET['edit']=true
  * @return string HTML-Code für die Artikelansicht
  */
 function genArtikelAnsicht() {
@@ -351,13 +352,13 @@ function genArtikelAnsicht() {
             <div class="col">
                 <label for="kurztext">Kurzbeschreibung</label>
                 <input ';
-    if($user != $article['user']) $ansicht .= 'disabled ';
+    if($user != $article['user'] || $_GET['edit'] == false) $ansicht .= 'readonly';
     $ansicht.=' type="text" name="ktxt" id="kurztext" class="form-control" value="'.$article['ktxt'].'">
             </div>
             <div class="col">
                 <label for="langtext">Ausfürliche Beschreibung</label>
                 <textarea ';
-    if($user != $article['user']) $ansicht .= 'disabled ';
+    if($user != $article['user'] || $_GET['edit'] == false) $ansicht .= 'readonly';
     $ansicht .=' rows="3" name="ltxt" id="langtext" class="form-control">'.$article['ltxt'].'</textarea>
             </div>
         </div>
@@ -366,40 +367,45 @@ function genArtikelAnsicht() {
         <div class="row">
             <label for="gewicht">Gewicht</label>
             <input ';
-    if($user != $article['user']) $ansicht .= 'disabled ';
-    $ansicht .='type="text" id="gewicht" name="gew" class="form-control text-center" value="'.$article['gewicht'].'">
+    if($user != $article['user'] || $_GET['edit'] == false) $ansicht .= 'readonly';
+    $ansicht .=' type="text" id="gewicht" name="gew" class="form-control text-center" value="'.$article['gewicht'].'">
         </div>
         <div class="row">
             <label for="gelagert">Menge auf Lager</label>
             <input ';
-    if($user != $article['user']) $ansicht .= 'disabled ';
-    $ansicht .='type="number" id="gelagert" name="gel" class=" form-control text-center" value="'.$article['gelagert'].'">
+    if($user != $article['user'] || $_GET['edit'] == false) $ansicht .= 'readonly';
+    $ansicht .=' type="number" id="gelagert" name="gel" class=" form-control text-center" value="'.$article['gelagert'].'">
         </div>
         <div class="row">
             <label for="einheit">Einheit</label>
             <input ';
-    if($user != $article['user']) $ansicht .= 'disabled ';
-    $ansicht .='type="text" id="einheit" name="ein" class="form-control text-center" value="'.$article['einheit'].'">
+    if($user != $article['user'] || $_GET['edit'] == false) $ansicht .= 'readonly';
+    $ansicht .=' type="text" id="einheit" name="ein" class="form-control text-center" value="'.$article['einheit'].'">
         </div>
         <div class="row">
             <label for="preis">Preis pro Einheit (€)</label>
             <input ';
-    if($user != $article['user']) $ansicht .= 'disabled ';
-    $ansicht .='type="number" id="preis" name="preis" class="form-control text-center" value="'.$article['preis'].'">
+    if($user != $article['user'] || $_GET['edit'] == false) $ansicht .= 'readonly';
+    $ansicht .=' type="number" id="preis" name="preis" class="form-control text-center" value="'.$article['preis'].'">
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col-5 mr-auto mb-3">
         <label for="user">Eigentümer</label>
-        <input type="text" id="user" name="user" class="form-control" disabled value="'.$article['user'].'">
-    </div>
-    <button ';
-    if($user != $article['user']) $ansicht .= 'disabled ';
-    $ansicht .='type="submit" class="btn btn-lg btn-success mt-auto">Änderungen speichern</button>
+        <input type="text" id="user" name="user" class="form-control" readonly value="'.$article['user'].'">
+    </div>';
+    if( $_GET['edit'] == true) {
+        $ansicht .= '<button ';
+        if($user != $article['user']) $ansicht .= 'disabled ';
+        $ansicht .='type="submit" class="btn btn-lg btn-success mt-auto">Änderungen speichern</button>
 </div>
 </form>
 ';
+    }
+    else{
+        $ansicht .= '<button onclick="goBack()" class="btn btn-lg btn-primary mt-auto">Zurück</button>';
+    }
     //Debug
     $ansicht .= '<script>
 console.log("Bild sollte unter: '.$article['img'].' liegen");
