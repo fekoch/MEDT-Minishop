@@ -200,6 +200,8 @@ function genSuchen() {
 
     if($ergs != "") {
     foreach($ergs as $aName => $article) {
+        if($_SESSION['username'] != $article['user']) $showControls = 'd-none';
+        else $showControls = '';
         //ein Artikel
         $artikelSuchen .='
                 <tr class="click-row" data-artikel-id="'.$aName.'">
@@ -216,10 +218,10 @@ function genSuchen() {
                     </td>
                     <td>'.$article['preis'].'€ / '.$article['gewicht'].''.$article['einheit'].'</td>
                     <td>
-                        <a class="btn btn-sm btn-warning edit-article">
+                        <a class="btn btn-sm btn-warning edit-article '.$showControls.'">
                             <span class="oi oi-pencil" title="Edit" aria-hidden="true"></span>
                         </a>
-                        <a class="btn btn-sm btn-danger delete-article">
+                        <a class="btn btn-sm btn-danger delete-article '.$showControls.'">
                             <span class="oi oi-delete" title="Delete" aria-hidden="true"></span>
                         </a>
                     </td>
